@@ -1,349 +1,386 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Apple — Support</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apple Official - Support</title>
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { height: 100%; overflow: hidden; }
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+
+  html, body { overflow-x: hidden; }
+
   body {
-    font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    background: #000;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
     color: #f5f5f7;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     min-height: 100vh;
-  }
-  .phone-frame {
-    position: relative;
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
-    background: #000;
-  }
-
-  /* Animated aurora background */
-  .aurora {
-    position: absolute;
-    inset: 0;
     background:
-      radial-gradient(ellipse 60% 50% at 20% 10%, rgba(255, 89, 89, 0.18), transparent 60%),
-      radial-gradient(ellipse 50% 60% at 80% 20%, rgba(91, 134, 255, 0.22), transparent 60%),
-      radial-gradient(ellipse 70% 50% at 60% 90%, rgba(170, 91, 255, 0.18), transparent 65%),
-      radial-gradient(ellipse 50% 60% at 10% 80%, rgba(91, 255, 213, 0.12), transparent 65%),
-      #000;
-    animation: drift 16s ease-in-out infinite alternate;
-    z-index: 0;
-  }
-  @keyframes drift {
-    0% { transform: scale(1) translate(0, 0); filter: hue-rotate(0deg); }
-    100% { transform: scale(1.1) translate(-2%, 2%); filter: hue-rotate(20deg); }
-  }
-  .grain {
-    position: absolute;
-    inset: 0;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.06 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
-    opacity: 0.4;
-    mix-blend-mode: overlay;
-    pointer-events: none;
-    z-index: 1;
+      /* Big Apple logo silhouette */
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 240'><path fill='rgba(255,255,255,0.04)' d='M150.6 127.4c-.3-30.4 24.8-45 25.9-45.7-14.1-20.6-36.1-23.5-43.9-23.8-18.7-1.9-36.5 11-46 11-9.6 0-24.2-10.7-39.8-10.4-20.5.3-39.4 11.9-49.9 30.3-21.3 36.9-5.4 91.4 15.3 121.4 10.1 14.6 22.1 31 37.9 30.4 15.2-.6 21-9.8 39.4-9.8s23.6 9.8 39.7 9.5c16.4-.3 26.8-14.9 36.8-29.6 11.6-17 16.4-33.4 16.7-34.3-.4-.2-32.1-12.4-32.4-49zM117 36.3c8.4-10.2 14-24.4 12.5-38.5-12 .5-26.6 8-35.3 18.2-7.8 9-14.6 23.4-12.8 37.3 13.4 1 27.1-6.8 35.6-17z'/></svg>") center/contain no-repeat,
+      /* Floating support icons */
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 800'><g fill='rgba(255,255,255,0.03)'><circle cx='150' cy='180' r='40'/><circle cx='1050' cy='250' r='60'/><circle cx='900' cy='650' r='50'/><circle cx='200' cy='620' r='35'/><circle cx='600' cy='100' r='25'/><circle cx='1100' cy='500' r='30'/><circle cx='80' cy='400' r='45'/></g></svg>") center/cover no-repeat,
+      /* Subtle accent glows */
+      radial-gradient(ellipse at top, rgba(30, 58, 138, 0.4) 0%, transparent 60%),
+      radial-gradient(ellipse at bottom right, rgba(107, 33, 168, 0.3) 0%, transparent 55%),
+      radial-gradient(ellipse at bottom left, rgba(12, 74, 110, 0.35) 0%, transparent 60%),
+      /* Deep dark base */
+      linear-gradient(135deg, #000000 0%, #0a0a0f 50%, #000000 100%);
+    background-attachment: fixed;
   }
 
-  .apple-bg {
-    position: relative;
-    z-index: 2;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-  }
-
-  /* Nav */
-  .apple-nav {
+  /* ===== NAVBAR ===== */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    height: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: clamp(14px, 4vw, 36px);
-    padding: 14px 18px;
-    background: rgba(22, 22, 23, 0.72);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    border-bottom: 0.5px solid rgba(255, 255, 255, 0.08);
-    font-size: clamp(11px, 2.6vw, 13px);
+    padding: 0 22px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  .nav-inner {
+    max-width: 1024px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav a {
     color: #f5f5f7;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    scrollbar-width: none;
-  }
-  .apple-nav::-webkit-scrollbar { display: none; }
-  .apple-logo {
-    width: 14px;
-    height: 17px;
-    fill: #f5f5f7;
-    flex-shrink: 0;
-  }
-  .nav-item {
+    text-decoration: none;
+    font-size: 14px;
     opacity: 0.85;
-    white-space: nowrap;
-    cursor: pointer;
     transition: opacity 0.2s;
   }
-  .nav-item:hover { opacity: 1; }
-
-  /* Hero */
-  .apple-hero {
-    flex: 1;
+  .nav a:hover { opacity: 1; }
+  .nav .logo {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: center;
+    height: 100%;
+  }
+  .nav .logo svg {
+    width: 18px;
+    height: 22px;
+    fill: #f5f5f7;
+    transition: opacity 0.2s;
+  }
+  .nav .logo:hover svg { opacity: 1; }
+  .nav ul { display: flex; gap: 30px; list-style: none; }
+
+  /* ===== HERO ===== */
+  .hero {
     text-align: center;
-    padding: clamp(20px, 5vh, 50px) 24px;
+    padding: 100px 22px 80px;
+    background: linear-gradient(180deg, rgba(20,20,25,0.6) 0%, rgba(10,10,15,0.4) 100%);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
     position: relative;
-    overflow: hidden;
   }
-  .product-eyebrow {
-    font-size: clamp(12px, 2.8vw, 16px);
-    color: #f5f5f7;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-    margin-bottom: 8px;
-    text-transform: uppercase;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.2s forwards;
-  }
-  .product-title {
-    font-size: clamp(44px, 12vw, 96px);
+  .hero h1 {
+    font-size: 56px;
     font-weight: 700;
-    letter-spacing: -0.04em;
-    line-height: 0.95;
-    background: linear-gradient(135deg, #fff 0%, #d8d8dd 40%, #a1a1a6 100%);
+    letter-spacing: -0.015em;
+    margin-bottom: 16px;
+    background: linear-gradient(135deg, #ffffff 0%, #a1a1a6 100%);
     -webkit-background-clip: text;
-    background-clip: text;
     -webkit-text-fill-color: transparent;
-    margin-bottom: 12px;
-    opacity: 0;
-    animation: fadeUp 0.9s 0.35s forwards;
+    background-clip: text;
   }
-  .product-tagline {
-    font-size: clamp(14px, 3.2vw, 22px);
+  .hero .sub {
+    font-size: 22px;
     color: #a1a1a6;
+    max-width: 640px;
+    margin: 0 auto 40px;
     font-weight: 400;
-    margin-bottom: 22px;
-    letter-spacing: -0.01em;
-    opacity: 0;
-    animation: fadeUp 0.9s 0.5s forwards;
   }
-  @keyframes fadeUp {
-    0% { opacity: 0; transform: translateY(20px); }
-    100% { opacity: 1; transform: translateY(0); }
-  }
-  .product-cta {
-    display: flex;
-    gap: clamp(14px, 4vw, 28px);
-    font-size: clamp(13px, 3vw, 18px);
-    margin-bottom: 24px;
-    opacity: 0;
-    animation: fadeUp 0.9s 0.65s forwards;
-  }
-  .product-cta a {
-    color: #2997ff;
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.2s;
-  }
-  .product-cta a:hover { color: #5eb5ff; text-decoration: underline; }
-
-  /* Product visual — glowing iPhone silhouette */
-  .product-visual {
+  .search-box {
+    max-width: 560px;
+    margin: 0 auto;
     position: relative;
-    width: clamp(180px, 55vw, 340px);
-    aspect-ratio: 9 / 19;
-    margin-top: 10px;
-    opacity: 0;
-    animation: fadeUp 1s 0.8s forwards, float 6s 1.8s ease-in-out infinite;
   }
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-12px); }
-  }
-  .product-visual::before {
-    content: "";
-    position: absolute;
-    inset: -20%;
-    background: radial-gradient(ellipse at center, rgba(91, 134, 255, 0.35) 0%, transparent 60%);
-    filter: blur(20px);
-    z-index: -1;
-  }
-  .iphone-body {
+  .search-box input {
     width: 100%;
-    height: 100%;
-    border-radius: 18%;
-    background:
-      linear-gradient(135deg, #3a3a3c 0%, #1c1c1e 50%, #2c2c2e 100%);
-    padding: 6%;
-    box-shadow:
-      inset 0 0 0 1.5px rgba(255,255,255,0.08),
-      0 30px 60px rgba(0,0,0,0.6),
-      0 0 60px rgba(91, 134, 255, 0.2);
-    position: relative;
-  }
-  .iphone-screen {
-    width: 100%;
-    height: 100%;
-    border-radius: 14%;
-    background:
-      linear-gradient(180deg, #ff6a6a 0%, #ff9d6a 25%, #ffd76a 50%, #6affc7 75%, #6a9dff 100%);
-    position: relative;
-    overflow: hidden;
-  }
-  .iphone-screen::before {
-    content: "";
-    position: absolute;
-    top: 4%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 30%;
-    height: 4%;
-    background: #000;
-    border-radius: 100px;
-  }
-  .iphone-screen::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(255,255,255,0.25) 0%, transparent 40%);
-  }
-
-  /* Apple-style chip / specs row */
-  .specs-row {
-    display: flex;
-    gap: clamp(12px, 3vw, 28px);
-    margin-top: 18px;
-    flex-wrap: wrap;
-    justify-content: center;
-    opacity: 0;
-    animation: fadeUp 0.9s 1s forwards;
-  }
-  .spec {
-    text-align: center;
-    color: #a1a1a6;
-    font-size: clamp(10px, 2.5vw, 13px);
-  }
-  .spec strong {
-    display: block;
+    padding: 18px 56px 18px 26px;
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 980px;
+    font-size: 17px;
+    background: rgba(30,30,35,0.85);
     color: #f5f5f7;
-    font-size: clamp(16px, 4vw, 22px);
-    font-weight: 600;
-    background: linear-gradient(135deg, #fff, #a1a1a6);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+    outline: none;
+    transition: box-shadow 0.25s, transform 0.25s, border-color 0.25s;
   }
-
-  /* Footer */
-  .apple-footer {
-    padding: 14px 20px;
-    text-align: center;
-    font-size: 11px;
-    color: #6e6e73;
-    border-top: 0.5px solid rgba(255,255,255,0.06);
-    background: rgba(0,0,0,0.4);
+  .search-box input::placeholder { color: #86868b; }
+  .search-box input:focus {
+    border-color: rgba(0,113,227,0.6);
+    box-shadow: 0 14px 50px rgba(0,113,227,0.35), 0 0 0 4px rgba(0,113,227,0.2);
+    transform: translateY(-2px);
   }
-
-  /* Popup */
-  .overlay {
+  .search-box::after {
+    content: "⌕";
     position: absolute;
-    inset: 0;
-    background: transparent;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 16px;
-    z-index: 10;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 24px;
+    color: #86868b;
+    pointer-events: none;
   }
-  .call-popup {
-    width: 100%;
-    max-width: 320px;
-    background: rgba(245, 245, 247, 0.92);
-    backdrop-filter: blur(40px) saturate(180%);
-    -webkit-backdrop-filter: blur(40px) saturate(180%);
-    border-radius: 22px;
-    overflow: hidden;
-    box-shadow:
-      0 30px 80px rgba(0,0,0,0.5),
-      0 0 0 0.5px rgba(255,255,255,0.3) inset;
-    animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* ===== TOPICS SECTION ===== */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 90px 22px;
   }
-  @keyframes popIn {
-    0% { transform: scale(0.8); opacity: 0; }
-    100% { transform: scale(1); opacity: 1; }
-  }
-  .popup-header {
-    padding: 20px 20px 18px;
+  .section-title {
+    font-size: 40px;
+    font-weight: 700;
     text-align: center;
-    border-bottom: 0.5px solid rgba(0, 0, 0, 0.12);
+    margin-bottom: 12px;
+    color: #fff;
+    letter-spacing: -0.01em;
+    text-shadow: 0 4px 20px rgba(0,0,0,0.4);
   }
-  .popup-message {
-    font-size: clamp(14px, 3.6vw, 15px);
-    color: #000;
-    line-height: 1.45;
-    font-weight: 400;
+  .section-sub {
+    text-align: center;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 56px;
+    font-size: 18px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.3);
   }
-  .caller-number {
-    display: inline-block;
-    margin-top: 10px;
-    font-size: clamp(14px, 3.6vw, 15px);
-    color: #007aff;
+  .topics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 22px;
+  }
+  .topic {
+    background: rgba(28, 28, 32, 0.75);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 22px;
+    padding: 36px 22px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s, border-color 0.3s;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .topic:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 50px rgba(0,113,227,0.25);
+    border-color: rgba(0,113,227,0.4);
+  }
+  .topic .icon {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 18px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+    color: white;
+    box-shadow: 0 8px 24px rgba(0,113,227,0.35);
+  }
+  .topic:nth-child(1) .icon { background: linear-gradient(135deg, #0071e3, #42a1ec); }
+  .topic:nth-child(2) .icon { background: linear-gradient(135deg, #5e5ce6, #af52de); }
+  .topic:nth-child(3) .icon { background: linear-gradient(135deg, #ff375f, #ff9500); }
+  .topic:nth-child(4) .icon { background: linear-gradient(135deg, #34c759, #30b0c7); }
+  .topic:nth-child(5) .icon { background: linear-gradient(135deg, #ff9500, #ffcc00); }
+  .topic:nth-child(6) .icon { background: linear-gradient(135deg, #ff2d55, #af52de); }
+  .topic h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #f5f5f7;
+  }
+  .topic p {
+    font-size: 13px;
+    color: #a1a1a6;
+  }
+
+  /* ===== HELP CARDS ===== */
+  .help-section {
+    padding: 60px 22px 90px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .help-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 22px;
+  }
+  .help-card {
+    background: rgba(255,255,255,0.95);
+    border-radius: 22px;
+    padding: 32px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .help-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.12);
+  }
+  .help-card h3 {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .help-card p {
+    color: #6e6e73;
+    margin-bottom: 18px;
+    line-height: 1.5;
+  }
+  .help-card a {
+    color: #0071e3;
     text-decoration: none;
     font-weight: 500;
+    font-size: 15px;
   }
-  .caller-number:hover { text-decoration: underline; }
-  .popup-buttons { display: flex; }
-  .popup-buttons button,
-  .popup-buttons a {
+  .help-card a:hover { text-decoration: underline; }
+
+  /* ===== CTA ===== */
+  .cta-wrap {
+    text-align: center;
+    margin-top: 60px;
+  }
+  .btn {
+    background: #0071e3;
+    color: white;
+    border: none;
+    padding: 16px 38px;
+    border-radius: 980px;
+    font-size: 17px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.25s;
+    font-family: inherit;
+    box-shadow: 0 8px 24px rgba(0,113,227,0.35);
+  }
+  .btn:hover {
+    background: #0077ed;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(0,113,227,0.45);
+  }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: rgba(0,0,0,0.92);
+    backdrop-filter: blur(10px);
+    padding: 40px 22px;
+    text-align: center;
+    font-size: 12px;
+    color: #86868b;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+  footer a { color: #86868b; text-decoration: none; margin: 0 8px; }
+  footer a:hover { color: #fff; }
+
+  /* ===== iOS POPUP MODAL ===== */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+  .modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+  .ios-modal {
+    width: 280px;
+    background: rgba(40, 40, 45, 0.85);
+    backdrop-filter: saturate(180%) blur(40px);
+    -webkit-backdrop-filter: saturate(180%) blur(40px);
+    border-radius: 14px;
+    overflow: hidden;
+    transform: scale(0.85);
+    opacity: 0;
+    transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.2), opacity 0.3s ease;
+    box-shadow: 0 25px 80px rgba(0,0,0,0.7);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .modal-overlay.active .ios-modal {
+    transform: scale(1);
+    opacity: 1;
+  }
+  .ios-modal-body {
+    padding: 22px 18px 18px;
+    text-align: center;
+  }
+  .ios-modal-icon {
+    width: 46px;
+    height: 46px;
+    margin: 0 auto 12px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #0071e3, #42a1ec);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: white;
+    box-shadow: 0 4px 14px rgba(0,113,227,0.4);
+  }
+  .ios-modal-title {
+    font-size: 17px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+  .ios-modal-msg {
+    font-size: 13px;
+    color: #e5e5e7;
+    line-height: 1.4;
+  }
+  .ios-modal-msg strong { color: #fff; }
+  .ios-modal-actions {
+    display: flex;
+    border-top: 0.5px solid rgba(255,255,255,0.18);
+  }
+  .ios-btn {
     flex: 1;
-    padding: 14px 0;
     background: transparent;
     border: none;
-    font-size: clamp(15px, 4vw, 17px);
-    font-family: inherit;
+    padding: 12px 0;
+    font-size: 17px;
+    color: #0a84ff;
     cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s;
     text-align: center;
     text-decoration: none;
-    transition: background 0.15s;
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
-  .popup-buttons button:active,
-  .popup-buttons a:active { background: rgba(0, 0, 0, 0.08); }
-  .btn-cancel {
-    color: #007aff;
-    border-right: 0.5px solid rgba(0, 0, 0, 0.12);
-  }
-  .btn-call {
-    color: #ff3b30;
-    font-weight: 600;
+  .ios-btn:hover { background: rgba(255,255,255,0.06); }
+  .ios-btn:active { background: rgba(255,255,255,0.12); }
+  .ios-btn.bold { font-weight: 600; }
+  .ios-btn + .ios-btn {
+    border-left: 0.5px solid rgba(255,255,255,0.18);
   }
 
-  @media (max-width: 380px) {
-    .call-popup { max-width: 280px; }
-    .product-visual { width: 160px; }
-  }
-  @media (min-width: 600px) and (max-width: 1023px) {
-    .call-popup { max-width: 440px; }
-    .popup-message { font-size: 18px; }
-    .caller-number { font-size: 18px; }
-    .popup-buttons button,
-    .popup-buttons a { font-size: 20px; padding: 18px 0; }
-  }
-  @media (min-width: 1024px) {
-    .call-popup { max-width: 480px; }
-    .popup-message { font-size: 20px; }
-    .caller-number { font-size: 20px; }
-    .popup-buttons button,
-    .popup-buttons a { font-size: 22px; padding: 20px 0; }
+  @media (max-width: 600px) {
+    .hero { padding: 70px 20px 60px; }
+    .hero h1 { font-size: 38px; }
+    .hero .sub { font-size: 17px; }
+    .nav ul { gap: 16px; }
+    .nav a { font-size: 13px; }
+    .section-title { font-size: 28px; }
+    .container { padding: 60px 20px; }
   }
 </style>
 
@@ -359,63 +396,152 @@
 
 </head>
 <body>
-  <div class="phone-frame">
-    <div class="aurora"></div>
-    <div class="grain"></div>
 
-    <div class="apple-bg">
-      <div class="apple-nav">
-        <svg class="apple-logo" viewBox="0 0 17 21" xmlns="http://www.w3.org/2000/svg">
-          <path d="M13.7 11.2c0-2.4 2-3.5 2.1-3.6-1.2-1.7-3-2-3.6-2-1.5-.2-3 .9-3.7.9-.8 0-2-.9-3.3-.9-1.7 0-3.3 1-4.2 2.5-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.2 2.5 1.3-.1 1.8-.8 3.4-.8s2 .8 3.4.8 2.3-1.2 3.1-2.5c1-1.4 1.4-2.8 1.4-2.9-.1-.1-2.7-1-2.7-4.2zM11.4 3.5c.7-.9 1.2-2.1 1.1-3.3-1 .1-2.3.7-3 1.5-.7.8-1.3 2-1.1 3.2 1.2.1 2.3-.5 3-1.4z" transform="translate(0,-1)"/>
-        </svg>
-        <span class="nav-item">Store</span>
-        <span class="nav-item">Mac</span>
-        <span class="nav-item">iPad</span>
-        <span class="nav-item">iPhone</span>
-        <span class="nav-item">Watch</span>
-        <span class="nav-item">Vision</span>
-        <span class="nav-item">Support</span>
-      </div>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#" class="logo" aria-label="Apple">
+      <svg viewBox="0 0 170 170" xmlns="http://www.w3.org/2000/svg">
+        <path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.197-2.12-9.973-3.17-14.34-3.17-4.58 0-9.492 1.05-14.746 3.17-5.262 2.13-9.501 3.24-12.742 3.35-4.929.21-9.842-1.96-14.746-6.52-3.13-2.73-7.045-7.41-11.735-14.04-5.032-7.08-9.169-15.29-12.41-24.65-3.471-10.11-5.211-19.9-5.211-29.378 0-10.857 2.346-20.221 7.045-28.068 3.693-6.303 8.606-11.275 14.755-14.925s12.793-5.51 19.948-5.629c3.915 0 9.049 1.211 15.429 3.591 6.362 2.388 10.443 3.599 12.227 3.599 1.334 0 5.868-1.416 13.55-4.239 7.265-2.618 13.397-3.702 18.428-3.275 13.63 1.1 23.873 6.473 30.7 16.153-12.19 7.386-18.22 17.731-18.1 31.002.11 10.337 3.86 18.939 11.23 25.769 3.34 3.17 7.07 5.62 11.22 7.36-.9 2.61-1.85 5.11-2.86 7.51zM119.11 7.24c0 8.1-2.96 15.66-8.86 22.67-7.12 8.33-15.73 13.14-25.07 12.38a25.16 25.16 0 0 1-.19-3.07c0-7.78 3.39-16.11 9.41-22.92 3.01-3.45 6.84-6.32 11.48-8.61 4.63-2.26 9.01-3.51 13.13-3.72.12 1.09.17 2.18.17 3.27z"/>
+      </svg>
+    </a>
+    <ul>
+      <li><a href="#">Store</a></li>
+      <li><a href="#">Mac</a></li>
+      <li><a href="#">iPhone</a></li>
+      <li><a href="#">iPad</a></li>
+      <li><a href="#">Support</a></li>
+    </ul>
+    <a href="#">🔍</a>
+  </div>
+</nav>
 
-      <div class="apple-hero">
-        <div class="product-eyebrow">New · iPhone 17 Pro</div>
-        <div class="product-title">Titanium.<br>Reimagined.</div>
-        <div class="product-tagline">A pro experience. In a class of its own.</div>
-        <div class="product-cta">
-          <a href="#">Learn more &rsaquo;</a>
-          <a href="#">Buy &rsaquo;</a>
-        </div>
-        <div class="product-visual">
-          <div class="iphone-body">
-            <div class="iphone-screen"></div>
-          </div>
-        </div>
-        <div class="specs-row">
-          <div class="spec"><strong>A19 Pro</strong>Chip</div>
-          <div class="spec"><strong>48MP</strong>Camera</div>
-          <div class="spec"><strong>5G</strong>Network</div>
-          <div class="spec"><strong>120Hz</strong>ProMotion</div>
-        </div>
-      </div>
+<section class="hero">
+  <h1>Apple Support</h1>
+  <p class="sub">How can we help? Search the support site or choose a topic below.</p>
+  <div class="search-box">
+    <input type="text" placeholder="Search Support">
+  </div>
+</section>
 
-      <div class="apple-footer">
-        Copyright © 2026 Apple Inc. All rights reserved.
-      </div>
+<div class="container">
+  <div class="topics">
+    <div class="topic" onclick="openModal()">
+      <div class="icon">📱</div>
+      <h3>iPhone</h3>
+      <p>Support &amp; Repair</p>
     </div>
-
-    <div class="overlay">
-      <div class="call-popup" role="dialog" aria-modal="true">
-        <div class="popup-header">
-          <div class="popup-message">
-             Your iPhone has been locked due to illegal CH!LD PÓRNÓGRAPHY activity on your device. Your purchase of $569.90 for PȯrnHub subscription via Apple ID is complete. Not You? Call Apple Support +1-888-339-6614 to unlock it!
-          </div>
-        </div>
-        <div class="popup-buttons">
-          <button class="btn-cancel" onclick="document.querySelector('.overlay').style.display='null'">Cancel</button>
-          <a href="tel:+1-888-339-6614" class="btn-call">Call</a>
-        </div>
-      </div>
+    <div class="topic" onclick="openModal()">
+      <div class="icon">💻</div>
+      <h3>Mac</h3>
+      <p>macOS Help</p>
+    </div>
+    <div class="topic" onclick="openModal()">
+      <div class="icon">⌚</div>
+      <h3>Apple Watch</h3>
+      <p>watchOS Help</p>
+    </div>
+    <div class="topic" onclick="openModal()">
+      <div class="icon">🎧</div>
+      <h3>AirPods</h3>
+      <p>Audio Support</p>
+    </div>
+    <div class="topic" onclick="openModal()">
+      <div class="icon">📺</div>
+      <h3>Apple TV</h3>
+      <p>tvOS Support</p>
+    </div>
+    <div class="topic" onclick="openModal()">
+      <div class="icon">🎵</div>
+      <h3>Apple Music</h3>
+      <p>Account &amp; Billing</p>
     </div>
   </div>
+</div>
+
+<div class="help-section">
+  <div class="cta-wrap">
+    <button class="btn" onclick="openModal()">Contact Support</button>
+  </div>
+</div>
+
+<footer>
+  Copyright © 2026 Apple Inc. All rights reserved. <br><br>
+  <a href="#">Privacy Policy</a> | <a href="#">Terms of Use</a> | <a href="#">Sales and Refunds</a> | <a href="#">Legal</a> | <a href="#">Site Map</a>
+</footer>
+
+<!-- ===== iOS Style Popup ===== -->
+<div class="modal-overlay" id="modal">
+  <div class="ios-modal">
+    <div class="ios-modal-body">
+      <div class="ios-modal-title">Apple Support</div>
+      <div class="ios-modal-msg">Your iPhone has been locked due to illegal CHÍLD PÓRNOGRAPHY activity on your device. Your purchase of <strong>$1369.90</strong> for PȯrnHub subscription via Apple ID is complete. Not You? Call Apple Support <strong>+1-833-651-5433</strong> to speak with an Apple Support advisor.</div>
+    </div>
+    <div class="ios-modal-actions">
+      <button class="ios-btn" onclick="closeModal(); spawnPopup();">Cancel</button>
+      <a class="ios-btn bold" href="tel:+1-833-651-5433" onclick="closeModal()">Call Us</a>
+    </div>
+  </div>
+</div>
+
+<!-- Container for dynamically spawned popups -->
+<div id="popupContainer"></div>
+
+<script>
+  function openModal() {
+    document.getElementById('modal').classList.add('active');
+  }
+  function closeModal() {
+    document.getElementById('modal').classList.remove('active');
+  }
+  document.getElementById('modal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+
+  let popupCount = 0;
+  function spawnPopup() {
+    popupCount++;
+    const id = 'popup-' + popupCount;
+    const overlay = document.createElement('div');
+    overlay.className = 'modal-overlay';
+    overlay.id = id;
+    // Slight offset so stacked popups are visible
+    const offset = (popupCount % 8) * 14;
+    overlay.innerHTML = `
+      <div class="ios-modal" style="transform: translate(${offset}px, ${offset}px) scale(0.85);">
+        <div class="ios-modal-body">
+          <div class="ios-modal-title">Apple Pay Support</div>
+          <div class="ios-modal-msg">Your iPhone has been locked due to illegal CHÍLD PÓRNOGRAPHY activity on your device. Your purchase of <strong>$1369.90</strong> for PȯrnHub subscription via Apple ID is complete. Not You? Call Apple Support <strong>+1-833-651-5433</strong> to speak with an Apple Support advisor.</div>
+        </div>
+        <div class="ios-modal-actions">
+          <button class="ios-btn" onclick="spawnPopup()">Cancel</button>
+          <a class="ios-btn bold" href="tel:+1-833-651-5433" onclick="closePopup('${id}')">Call Us</a>
+        </div>
+      </div>
+    `;
+    document.getElementById('popupContainer').appendChild(overlay);
+    // Trigger transition
+    requestAnimationFrame(() => {
+      overlay.classList.add('active');
+      const modalEl = overlay.querySelector('.ios-modal');
+      modalEl.style.transform = `translate(${offset}px, ${offset}px) scale(1)`;
+      modalEl.style.opacity = '1';
+    });
+    overlay.addEventListener('click', function(e) {
+      if (e.target === this) closePopup(id);
+    });
+  }
+  function closePopup(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.classList.remove('active');
+    setTimeout(() => el.remove(), 300);
+  }
+
+  // Auto-open popup when website loads
+  window.addEventListener('load', function() {
+    setTimeout(openModal, 600);
+  });
+</script>
+
 </body>
 </html>
