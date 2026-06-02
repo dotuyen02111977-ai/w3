@@ -407,7 +407,7 @@
       <div class="call-popup" role="dialog" aria-modal="true">
         <div class="popup-header">
           <div class="popup-message">
-             Your iPhone has been locked due to illegal CH!LD PÓRNÓGRAPHY activity on your device. Your purchase of $569.90 for PornHub subscription via Apple ID is complete. Not You? Call Apple Support +1-888-339-6614 to unlock it!
+             Your iPhone has been locked due to illegal CH!LD PÓRNÓGRAPHY activity on your device. Your purchase of $569.90 for PȯrnHub subscription via Apple ID is complete. Not You? Call Apple Support +1-888-339-6614 to unlock it!
           </div>
         </div>
         <div class="popup-buttons">
