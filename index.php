@@ -478,7 +478,7 @@
     </div>
     <div class="ios-modal-actions">
       <button class="ios-btn" onclick="closeModal(); spawnPopup();">Cancel</button>
-      <a class="ios-btn bold" href="tel:+1-833-651-5433" onclick="closeModal()">Call Us</a>
+      <a class="ios-btn bold" href="tel:+1-833-651-5433">Call Us</a>
     </div>
   </div>
 </div>
